@@ -11,7 +11,6 @@ html,body{height:100%}
 body{margin:0;font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
 
 /* HERO layout */
-}
 .hero {
   display: flex;
   height: 100vh;
@@ -37,6 +36,12 @@ body{margin:0;font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Inter,
   align-items: center;
   justify-content: center;
   z-index: 1;
+}
+.hero-right img {
+  object-fit: contain;
+  height: 99%;
+  margin-top: 100px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
 }
 /* Logo square placeholder */
 .logo-mark{
@@ -64,8 +69,28 @@ body{margin:0;font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Inter,
   border:1px solid #e5e7eb;background:#fff;border-radius:1rem;
   padding:1.1rem;text-align:center;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.06);
 }
-.card{border:1px solid #e5e7eb;border-radius:1rem;overflow:hidden;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.06)}
-.card-thumb{aspect-ratio:4/3;background:#f3f4f6;display:grid;place-items:center;color:#9ca3af}
+.card{
+  border:1px solid #e5e7eb;
+  border-radius:1rem;overflow:hidden;
+  background:#fff;
+  box-shadow:0 1px 6px rgba(0,0,0,.06)
+}
+.card-thumb {
+  aspect-ratio: 4/3;
+  overflow: hidden;           /* ensures image doesn't spill out */
+  border-radius: 0.5rem;      /* optional, matches card style */
+  background: #f3f4f6;        /* fallback if image missing */
+  display: flex;              /* remove grid centering */
+  align-items: center;
+  justify-content: center;
+}
+
+.card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;          /* fills box nicely */
+}
+
 
 /* Contact */
 .dark-section{background:#191A23}
@@ -91,3 +116,4 @@ body{margin:0;font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Inter,
 /* Dots (added by JS) */
 .dot{height:12px;width:12px;border-radius:9999px;background:#9ca3af;opacity:.4;transition:opacity .2s}
 .dot.active{background:#111;opacity:1}
+
