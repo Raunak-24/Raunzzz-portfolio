@@ -188,7 +188,7 @@ export function GitHubSection() {
                 GitHub data is currently unavailable. Connect your GitHub account to display your repositories.
               </p>
               <Button variant="outline" asChild>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/Raunak-24/" target="_blank" rel="noopener noreferrer">
                   <SiGithub className="w-4 h-4 mr-2" />
                   Visit GitHub
                 </a>
@@ -211,7 +211,7 @@ export function GitHubSection() {
             <div className="text-center mt-8">
               <Button variant="outline" asChild>
                 <a
-                  href={profile?.html_url || "https://github.com"}
+                  href={profile?.html_url || "https://github.com/Raunak-24"}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-testid="link-github-profile"
