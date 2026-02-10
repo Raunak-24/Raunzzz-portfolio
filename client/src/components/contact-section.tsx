@@ -54,7 +54,7 @@ export function ContactSection() {
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">Location</p>
-                      <p className="text-sm font-medium">San Francisco, CA</p>
+                      <p className="text-sm font-medium">Bihar, IN</p>
                     </div>
                   </div>
 
