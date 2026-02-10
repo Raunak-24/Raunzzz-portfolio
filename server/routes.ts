@@ -4,12 +4,12 @@ import { storage } from "./storage";
 
 const GITHUB_API = "https://api.github.com";
 
-const DEMO_USERNAME = "yashpriyam-dev";
+const DEMO_USERNAME = "yash-dev";
 
 async function fetchGitHub(path: string, token?: string) {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github.v3+json",
-    "User-Agent": "DevPortfolio",
+    "User-Agent": "Portfolio",
   };
   if (token) {
     headers.Authorization = `Bearer ${token}`;
@@ -28,8 +28,8 @@ const fallbackProfile = {
   name: "Yash Priyam",
   bio: "Full-stack developer. Building elegant web experiences.",
   public_repos: 7,
-  followers: -,
-  following: -,
+  followers: 0,
+  following: 0,
 };
 
 const fallbackRepos = [
