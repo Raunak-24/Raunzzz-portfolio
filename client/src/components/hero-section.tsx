@@ -77,7 +77,7 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <span className="text-foreground">Hi, I'm </span>
-            <span className="text-primary">Alex Chen</span>
+            <span className="text-primary">Yash Priyam</span>
           </motion.h1>
 
           <motion.div
@@ -110,7 +110,7 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.35 }}
           >
             <MapPin className="w-3.5 h-3.5" />
-            <span>San Francisco, CA</span>
+            <span>Bihar, IN</span>
           </motion.div>
 
           <motion.div
@@ -140,7 +140,7 @@ export function HeroSection() {
               variant="ghost"
               asChild
             >
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" data-testid="link-github">
+              <a href="https://github.com/Raunak-24" target="_blank" rel="noopener noreferrer" data-testid="link-github">
                 <SiGithub className="w-4 h-4" />
               </a>
             </Button>
@@ -149,7 +149,7 @@ export function HeroSection() {
               variant="ghost"
               asChild
             >
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" data-testid="link-linkedin">
+              <a href="https://linkedin.com/in/yash-priyam-ab3b32395" target="_blank" rel="noopener noreferrer" data-testid="link-linkedin">
                 <SiLinkedin className="w-4 h-4" />
               </a>
             </Button>
