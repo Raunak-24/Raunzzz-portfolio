@@ -44,7 +44,7 @@ export function ContactSection() {
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">Email</p>
-                      <p className="text-sm font-medium">alex@devportfolio.com</p>
+                      <p className="text-sm font-medium">raunakrajput2411@gmail.com</p>
                     </div>
                   </div>
 
@@ -74,26 +74,26 @@ export function ContactSection() {
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">GitHub</p>
-                      <p className="text-sm font-medium">@alexchen</p>
+                      <p className="text-sm font-medium">@Raunak-24</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="border-t pt-6 flex flex-wrap items-center justify-center gap-3 w-full">
                   <Button asChild data-testid="button-email-me">
-                    <a href="mailto:alex@devportfolio.com">
+                    <a href="mailto:raunakrajput2411@gmail.com">
                       <Mail className="w-4 h-4 mr-2" />
                       Send Email
                     </a>
                   </Button>
                   <Button variant="outline" asChild data-testid="button-github-contact">
-                    <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/Raunak-24" target="_blank" rel="noopener noreferrer">
                       <SiGithub className="w-4 h-4 mr-2" />
                       GitHub
                     </a>
                   </Button>
                   <Button variant="outline" asChild data-testid="button-linkedin-contact">
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://linkedin.com/in/yash-priyam-ab3b32395" target="_blank" rel="noopener noreferrer">
                       <SiLinkedin className="w-4 h-4 mr-2" />
                       LinkedIn
                     </a>
