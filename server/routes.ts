@@ -27,9 +27,9 @@ const fallbackProfile = {
   html_url: "https://github.com/Raunak-24",
   name: "Yash Priyam",
   bio: "Full-stack developer. Building elegant web experiences.",
-  public_repos: 7,
-  followers: 0,
-  following: 0,
+  public_repos: 42,
+  followers: 128,
+  following: 67,
 };
 
 const fallbackRepos = [
