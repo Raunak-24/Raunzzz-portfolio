@@ -44,7 +44,7 @@ export function Navigation() {
           data-testid="link-home"
         >
           <Code2 className="w-5 h-5 text-primary" />
-          <span className="text-foreground">dev</span>
+          <span className="text-foreground">.</span>
           <span className="text-primary">Portfolio</span>
         </button>
 
