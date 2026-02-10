@@ -4,7 +4,7 @@ import { storage } from "./storage";
 
 const GITHUB_API = "https://api.github.com";
 
-const DEMO_USERNAME = "alexchen-dev";
+const DEMO_USERNAME = "yashpriyam-dev";
 
 async function fetchGitHub(path: string, token?: string) {
   const headers: Record<string, string> = {
@@ -22,23 +22,23 @@ async function fetchGitHub(path: string, token?: string) {
 }
 
 const fallbackProfile = {
-  login: "alexchen",
+  login: "Yash",
   avatar_url: "",
-  html_url: "https://github.com/alexchen",
-  name: "Alex Chen",
+  html_url: "https://github.com/Raunak-24",
+  name: "Yash Priyam",
   bio: "Full-stack developer. Building elegant web experiences.",
-  public_repos: 42,
-  followers: 128,
-  following: 67,
+  public_repos: 7,
+  followers: -,
+  following: -,
 };
 
 const fallbackRepos = [
   {
     id: 1,
     name: "taskflow-pro",
-    full_name: "alexchen/taskflow-pro",
+    full_name: "Raunak-24/taskflow-pro",
     description: "Real-time collaborative project management with kanban boards and team workflows",
-    html_url: "https://github.com/alexchen/taskflow-pro",
+    html_url: "https://github.com/Raunak-24/taskflow-pro",
     homepage: "https://taskflow.dev",
     language: "TypeScript",
     stargazers_count: 234,
@@ -50,9 +50,9 @@ const fallbackRepos = [
   {
     id: 2,
     name: "code-snippet-hub",
-    full_name: "alexchen/code-snippet-hub",
+    full_name: "Raunak-24/code-snippet-hub",
     description: "Developer-focused snippet manager with syntax highlighting, tagging, and sharing",
-    html_url: "https://github.com/alexchen/code-snippet-hub",
+    html_url: "https://github.com/Raunak-24/code-snippet-hub",
     homepage: null,
     language: "TypeScript",
     stargazers_count: 189,
@@ -64,9 +64,9 @@ const fallbackRepos = [
   {
     id: 3,
     name: "weather-viz",
-    full_name: "alexchen/weather-viz",
+    full_name: "Raunak-24/weather-viz",
     description: "Interactive weather visualization with D3.js animated charts and 7-day forecasts",
-    html_url: "https://github.com/alexchen/weather-viz",
+    html_url: "https://github.com/Raunak-24/weather-viz",
     homepage: "https://weatherviz.app",
     language: "JavaScript",
     stargazers_count: 156,
@@ -78,9 +78,9 @@ const fallbackRepos = [
   {
     id: 4,
     name: "express-rate-limiter",
-    full_name: "alexchen/express-rate-limiter",
+    full_name: "Raunak-24/express-rate-limiter",
     description: "Lightweight Express middleware for API rate limiting with sliding window algorithm",
-    html_url: "https://github.com/alexchen/express-rate-limiter",
+    html_url: "https://github.com/Raunak-24/express-rate-limiter",
     homepage: null,
     language: "TypeScript",
     stargazers_count: 312,
@@ -92,9 +92,9 @@ const fallbackRepos = [
   {
     id: 5,
     name: "pixel-canvas",
-    full_name: "alexchen/pixel-canvas",
+    full_name: "Raunak-24/pixel-canvas",
     description: "Collaborative pixel art editor with layers, animation frames, and GIF export",
-    html_url: "https://github.com/alexchen/pixel-canvas",
+    html_url: "https://github.com/Raunak-24/pixel-canvas",
     homepage: "https://pixelcanvas.io",
     language: "JavaScript",
     stargazers_count: 98,
@@ -106,9 +106,9 @@ const fallbackRepos = [
   {
     id: 6,
     name: "go-api-gateway",
-    full_name: "alexchen/go-api-gateway",
+    full_name: "Raunak-24/go-api-gateway",
     description: "High-performance API gateway with caching, load balancing, and monitoring",
-    html_url: "https://github.com/alexchen/go-api-gateway",
+    html_url: "https://github.com/Raunak-24/go-api-gateway",
     homepage: null,
     language: "Go",
     stargazers_count: 445,
