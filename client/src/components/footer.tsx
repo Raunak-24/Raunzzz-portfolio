@@ -9,17 +9,17 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Code2 className="w-4 h-4 text-primary" />
-            <span>Built with React, TypeScript & TailwindCSS</span>
+            <span>Built with React, TS ,TailwindCSS & Love❤️</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-1">
             <Button size="icon" variant="ghost" asChild>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" data-testid="link-footer-github">
+              <a href="https://github.com/Raunak-24" target="_blank" rel="noopener noreferrer" data-testid="link-footer-github">
                 <SiGithub className="w-4 h-4" />
               </a>
             </Button>
             <Button size="icon" variant="ghost" asChild>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" data-testid="link-footer-linkedin">
+              <a href="https://linkedin.com/in/yash-priyam-ab3b32395" target="_blank" rel="noopener noreferrer" data-testid="link-footer-linkedin">
                 <SiLinkedin className="w-4 h-4" />
               </a>
             </Button>
