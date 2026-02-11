@@ -127,7 +127,7 @@ export async function registerRoutes(
 
   app.get("/api/github/profile", async (req, res) => {
     try {
-      const username = (req.query.username as string) || DEMO_USERNAME;
+      const username = GITHUB_USERNAME;
       if (githubToken) {
         const profile = await fetchGitHub(`/users/${username}`, githubToken);
         return res.json({
@@ -149,7 +149,7 @@ export async function registerRoutes(
 
   app.get("/api/github/repos", async (req, res) => {
     try {
-      const username = (req.query.username as string) || DEMO_USERNAME;
+      const username = GITHUB_USERNAME;
       if (githubToken) {
         const repos = await fetchGitHub(
           `/users/${username}/repos?sort=updated&per_page=6&type=owner`,
