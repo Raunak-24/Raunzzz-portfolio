@@ -1,7 +1,7 @@
 import { Navigation } from "@/components/navigation";
 import { HeroSection } from "@/components/hero-section";
 import { ProjectsSection } from "@/components/projects-section";
-import { LiveCodeAI } from "@/components/code-demo-section";
+import { LiveCodeAI } from "@/components/live-code-ai";
 import { SkillsSection } from "@/components/skills-section";
 import { GitHubRepos } from "@/components/GitHubRepos";
 import { ContactSection } from "@/components/contact-section";
