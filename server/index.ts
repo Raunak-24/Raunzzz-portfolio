@@ -1,10 +1,10 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
-import { createServer } from "http";
 
 const app = express();
-const httpServer = createServer(app);
+
+/* -------------------- Middleware -------------------- */
 
 declare module "http" {
   interface IncomingMessage {
@@ -15,12 +15,14 @@ declare module "http" {
 app.use(
   express.json({
     verify: (req, _res, buf) => {
-      req.rawBody = buf;
+      (req as any).rawBody = buf;
     },
   }),
 );
 
 app.use(express.urlencoded({ extended: false }));
+
+/* -------------------- Logger -------------------- */
 
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
@@ -33,10 +35,12 @@ export function log(message: string, source = "express") {
   console.log(`${formattedTime} [${source}] ${message}`);
 }
 
+/* -------------------- Request Logger -------------------- */
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
+  let capturedJsonResponse: Record<string, any> | undefined;
 
   const originalResJson = res.json;
   res.json = function (bodyJson, ...args) {
@@ -51,7 +55,6 @@ app.use((req, res, next) => {
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
-
       log(logLine);
     }
   });
@@ -59,34 +62,32 @@ app.use((req, res, next) => {
   next();
 });
 
-(async () => {
-  await registerRoutes(httpServer, app);
+/* -------------------- Routes -------------------- */
 
-  app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
+// IMPORTANT: no async wrapper, no listen(), no server
+registerRoutes(null as any, app);
 
-    console.error("Internal Server Error:", err);
+/* -------------------- Error Handler -------------------- */
 
-    if (res.headersSent) {
-      return next(err);
-    }
+app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
+  const status = err.status || err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
 
-    return res.status(status).json({ message });
-  });
+  console.error("Internal Server Error:", err);
 
-  // Setup Vite only in development
-  if (process.env.NODE_ENV === "production") {
-    serveStatic(app);
-  } else {
-    const { setupVite } = await import("./vite");
-    await setupVite(httpServer, app);
+  if (res.headersSent) {
+    return next(err);
   }
 
-  // Use PORT provided by environment (Vercel requirement)
-  const port = parseInt(process.env.PORT || "5000", 10);
+  return res.status(status).json({ message });
+});
 
-  httpServer.listen(port, () => {
-    log(`serving on port ${port}`);
-  });
-})();
+/* -------------------- Static Files (Production) -------------------- */
+
+if (process.env.NODE_ENV === "production") {
+  serveStatic(app);
+}
+
+/* -------------------- EXPORT (REQUIRED FOR VERCEL) -------------------- */
+
+export default app;
