@@ -1,32 +1,44 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const { code } = req.body;
-
-  const response = await fetch(
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" +
-      process.env.GEMINI_API_KEY,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: `Explain the following code clearly:\n\n${code}`,
-              },
-            ],
-          },
-        ],
-      }),
+export default async function handler(req: Request) {
+  try {
+    if (req.method !== "POST") {
+      return new Response("Method Not Allowed", { status: 405 });
     }
-  );
 
-  const data = await response.json();
-  const text =
-    data.candidates?.[0]?.content?.parts?.[0]?.text ||
-    "Could not analyze code.";
+    const body = await req.json();
+    const { code, language } = body;
 
-  res.status(200).json({ explanation: text });
+    if (!code) {
+      return new Response(
+        JSON.stringify({ error: "No code provided" }),
+        { status: 400 }
+      );
+    }
+
+    // TEMP analysis (safe test)
+    const explanation = `
+This looks like ${language || "unknown"} code.
+
+• Length: ${code.length} characters
+• Lines: ${code.split("\n").length}
+
+The serverless function is working correctly.
+`;
+
+    return new Response(
+      JSON.stringify({
+        explanation,
+        output: "Execution disabled (analysis only)"
+      }),
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+  } catch (err) {
+    console.error(err);
+    return new Response(
+      JSON.stringify({ error: "Internal Server Error" }),
+      { status: 500 }
+    );
+  }
 }
