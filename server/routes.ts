@@ -4,7 +4,7 @@ import { storage } from "./storage";
 
 const GITHUB_API = "https://api.github.com";
 
-const DEMO_USERNAME = "yash-dev";
+const GITHUB_USERNAME = process.env.GITHUB_USERNAME || "Raunak-24";
 
 async function fetchGitHub(path: string, token?: string) {
   const headers: Record<string, string> = {
