@@ -16,6 +16,7 @@ export default function Home() {
         <ProjectsSection />
         <CodeDemoSection />
         <SkillsSection />
+        <GitHubRepos />
         <ContactSection />
       </main>
       <Footer />
