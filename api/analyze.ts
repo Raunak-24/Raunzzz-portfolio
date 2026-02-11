@@ -1,3 +1,6 @@
+export const config = {
+  runtime: "edge",
+};
 export default async function handler(req: Request) {
   try {
     if (req.method !== "POST") {
