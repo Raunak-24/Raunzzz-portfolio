@@ -64,7 +64,7 @@ app.use((req, res, next) => {
 
 /* -------------------- Routes -------------------- */
 
-// IMPORTANT: no async wrapper, no listen(), no server
+// ✅ IMPORTANT: Register API routes BEFORE static files
 registerRoutes(null as any, app);
 
 /* -------------------- Error Handler -------------------- */
@@ -84,6 +84,7 @@ app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
 
 /* -------------------- Static Files (Production) -------------------- */
 
+// ✅ Serve static files AFTER API routes
 if (process.env.NODE_ENV === "production") {
   serveStatic(app);
 }
