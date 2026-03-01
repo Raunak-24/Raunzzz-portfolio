@@ -11,21 +11,49 @@ export function LiveCodeAI() {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState(""); // ✅ Add error state
 
   async function analyzeCode() {
     if (!code.trim()) return;
     setLoading(true);
+    setError(""); // Reset error
+    setResponse(""); // Reset response
 
-    const res = await fetch("/api/analyze", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code }),
-    });
+    try {
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
 
-    const data = await res.json();
-    setResponse(data.explanation);
-    setLoading(false);
-    setOpen(true);
+      // ✅ Check if response is ok
+      if (!res.ok) {
+        const errorData = await res.json();
+        setError(errorData.error || `Error: ${res.status}`);
+        setLoading(false);
+        setOpen(true);
+        return;
+      }
+
+      const data = await res.json();
+
+      // ✅ Check if explanation exists
+      if (data.error) {
+        setError(data.error);
+      } else if (data.explanation) {
+        setResponse(data.explanation);
+      } else {
+        setError("No response from AI");
+      }
+
+      setLoading(false);
+      setOpen(true);
+    } catch (err) {
+      // ✅ Catch network errors
+      setError(`Failed to analyze: ${err instanceof Error ? err.message : "Unknown error"}`);
+      setLoading(false);
+      setOpen(true);
+    }
   }
 
   return (
@@ -50,9 +78,9 @@ export function LiveCodeAI() {
               onChange={(e) => setCode(e.target.value)}
             />
 
-            <Button onClick={analyzeCode} disabled={loading}>
+            <Button onClick={analyzeCode} disabled={loading || !code.trim()}>
               {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-              Analyze Code
+              {loading ? "Analyzing..." : "Analyze Code"}
             </Button>
           </CardContent>
         </Card>
@@ -61,11 +89,19 @@ export function LiveCodeAI() {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
-              <DialogTitle>AI Explanation</DialogTitle>
+              <DialogTitle>
+                {error ? "Error" : "AI Explanation"}
+              </DialogTitle>
             </DialogHeader>
-            <pre className="text-sm whitespace-pre-wrap text-muted-foreground">
-              {response}
-            </pre>
+            {error ? (
+              <div className="text-red-500 font-semibold p-4 bg-red-50 rounded">
+                {error}
+              </div>
+            ) : (
+              <pre className="text-sm whitespace-pre-wrap text-muted-foreground">
+                {response}
+              </pre>
+            )}
           </DialogContent>
         </Dialog>
       </div>
