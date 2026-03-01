@@ -125,6 +125,7 @@ export async function registerRoutes(
 ): Promise<Server> {
   const githubToken = process.env.GITHUB_TOKEN;
 
+  // ✅ GitHub Profile Endpoint
   app.get("/api/github/profile", async (req, res) => {
     try {
       const username = GITHUB_USERNAME;
@@ -147,6 +148,7 @@ export async function registerRoutes(
     }
   });
 
+  // ✅ GitHub Repos Endpoint
   app.get("/api/github/repos", async (req, res) => {
     try {
       const username = GITHUB_USERNAME;
@@ -177,6 +179,88 @@ export async function registerRoutes(
       res.json(fallbackRepos);
     } catch (error) {
       res.json(fallbackRepos);
+    }
+  });
+
+  // ✅ NEW: AI Code Analyzer Endpoint
+  app.post("/api/analyze", async (req, res) => {
+    try {
+      const { code } = req.body;
+
+      console.log("📥 Received code length:", code?.length);
+
+      if (!code || !code.trim()) {
+        return res.status(400).json({ error: "No code provided" });
+      }
+
+      const apiKey = process.env.GEMINI_API_KEY;
+
+      if (!apiKey) {
+        console.error("❌ GEMINI_API_KEY is missing in environment variables");
+        return res.status(500).json({ 
+          error: "API key missing - check environment variables" 
+        });
+      }
+
+      const prompt = `
+Explain the following code in simple beginner-friendly language.
+Also mention:
+• Programming language
+• What the code does
+• Any issues or improvements
+
+Code:
+${code}
+`;
+
+      console.log("📤 Sending to Gemini API...");
+
+      const geminiRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [{ text: prompt }]
+              }
+            ]
+          })
+        }
+      );
+
+      console.log(`📥 Gemini API response status: ${geminiRes.status}`);
+
+      if (!geminiRes.ok) {
+        const errorData = await geminiRes.json();
+        console.error("❌ Gemini API error:", errorData);
+        return res.status(geminiRes.status).json({
+          error: `Gemini API failed: ${errorData.error?.message || "Unknown error"}`
+        });
+      }
+
+      const data = await geminiRes.json();
+
+      if (!data?.candidates?.[0]?.content?.parts?.[0]?.text) {
+        console.error("❌ Invalid response format:", JSON.stringify(data));
+        return res.status(500).json({
+          error: "Invalid response from AI - response format unexpected"
+        });
+      }
+
+      const explanation = data.candidates[0].content.parts[0].text;
+
+      console.log("✅ Code analysis successful");
+
+      return res.status(200).json({ explanation });
+
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      console.error("❌ Server error:", errorMessage);
+      return res.status(500).json({ 
+        error: `Server error: ${errorMessage}` 
+      });
     }
   });
 
