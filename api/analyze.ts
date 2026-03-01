@@ -1,47 +1,31 @@
-export const config = {
-  runtime: "edge",
-};
-export default async function handler(req: Request) {
+export default async function handler(req: any, res: any) {
   try {
     if (req.method !== "POST") {
-      return new Response("Method Not Allowed", { status: 405 });
+      return res.status(405).send("Method Not Allowed");
     }
 
-    const body = await req.json();
-    const { code, language } = body;
+    const { code, language } = req.body;
 
     if (!code) {
-      return new Response(
-        JSON.stringify({ error: "No code provided" }),
-        { status: 400 }
-      );
+      return res.status(400).json({ error: "No code provided" });
     }
 
-    // TEMP analysis (safe test)
     const explanation = `
 This looks like ${language || "unknown"} code.
 
 • Length: ${code.length} characters
 • Lines: ${code.split("\n").length}
 
-The serverless function is working correctly.
+Serverless function is working correctly ✅
 `;
 
-    return new Response(
-      JSON.stringify({
-        explanation,
-        output: "Execution disabled (analysis only)"
-      }),
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return res.status(200).json({
+      explanation,
+      output: "Execution disabled (analysis only)",
+    });
 
   } catch (err) {
     console.error(err);
-    return new Response(
-      JSON.stringify({ error: "Internal Server Error" }),
-      { status: 500 }
-    );
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 }
